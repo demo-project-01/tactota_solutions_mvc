@@ -1,19 +1,22 @@
 <?php
-
-
-
-
-include 'clerk_sidebar.php';
+   include 'clerk_sidebar.php';
 ?>
-
-
+<body>
 <div class="content">
+    <div class= "dash1">
+        <div class= "dash2">
+        </div>
+    </div>
+    <div class= "dash3">
+        <div class= "dash4">
+        </div>
+    </div>
     
     <div class="wrapper">
         <div class="list_wrap">
             <div class="subcontent">
         <h1><p>Stock Reminders</p></h1>
-           </div>
+        </div>
             <ul>
                 <li class="github">
                     <div class="list">
@@ -50,8 +53,15 @@ include 'clerk_sidebar.php';
                         </div> 
                     </div>
                 </li>
+                <div class="view">
+                <b><a href="#"><span>View All Products</span></a></b>
+                </div>
             </ul>
         </div>
-    </div>
-    
+    </div> 
+    <div class="footer">
+	<p>© Tactota Solutions All rights reserved </p>
+   </div>
 </div>
+</body>
+  
