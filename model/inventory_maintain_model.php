@@ -98,12 +98,30 @@ class inventory_maintain_model
 
     public function get_product_details(){
 
-        $query = $this->mysqli->query("SELECT * FROM  product INNER JOIN supplier_product ON product.p_id=supplier_product.p_id");
+        $query = $this->mysqli->query("SELECT * FROM  product INNER JOIN supplier_product ON product.p_id=supplier_product.p_id INNER JOIN item ON product.p_id=item.p_id ");
         while ($row = $query->fetch_assoc()) {
             $result[] = $row;
         }
         return $result;
     }
 
+    public function get_view_product_details($id){
+       $result = "";
+        $query = $this->mysqli->query("SELECT product.p_id,product.p_name,product.brand_name,product.model_no,product.quantity,product.p_cost,product.reorder_level,product.warranty,item.sales_price FROM  product INNER JOIN item ON product.p_id=item.p_id AND product.p_id='" . $id . "'");
+        while ($row = $query->fetch_assoc()) {
+            $result = $row;
+        }
+        return $result;
+    }
 
+    public function update_product_details($id,$reorder_level,$warranty,$p_cost,$sales_price){
+        $stmt = $this->mysqli->prepare("UPDATE product INNER JOIN item ON product.p_id =item.p_id  SET  product.p_cost= ?,  product.reorder_level= ? ,  product.warranty= ?,  item.sales_price= ?
+                                        WHERE product.p_id=?");
+        if($stmt==FALSE)
+            return 0;
+        else{
+            $stmt->bind_param('sssss',$p_cost,$reorder_level,$warranty,$sales_price,$id);
+            return $stmt->execute();
+        }
+    }
 }

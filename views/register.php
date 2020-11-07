@@ -22,7 +22,7 @@
             <form action="../controller/authenitication.php?action=register" method="post">
 
                 <i class="fas fa-lock" class="align"></i><input class="text" type="text" name="firstname" placeholder="First Name" required="">
-                <i class="fas fa-lock" class="align"></i><input class="text" type="text" name="middlename" placeholder="Middle Name" required="">
+                <i class="fas fa-lock" class="align"></i><input class="text" type="text" name="middlename" placeholder="Middle Name">
                 <i class="fas fa-lock" class="align"></i><input class="text" type="text" name="lastname" placeholder="Last Name" required="">
                 <i class="fas fa-lock" class="align"></i><input class="text" type="text" name="address" placeholder="Address" required="">
                 <i class="fas fa-lock" class="align"></i><input class="text" type="text" name="moblile_no" placeholder="Mobile Number" required="">

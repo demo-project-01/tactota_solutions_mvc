@@ -42,10 +42,100 @@ class sales
     }
 
     }
+    public function valid_prodcuts(){
+        return $this->sale->view_products();
+    }
+    public function sell($id){
+       print_r($id);
+
+   //   header('location: ../views/bill.php');
+    }
+
 }
 $controller = new sales();
 if(isset($_GET['action']) && $_GET['action'] == "get_supplier_names") {
     $controller->get_supplier_names();
 }else if(isset($_GET['action']) && $_GET['action'] == 'add_product') {
     $controller->add_product();
+}else if(isset($_GET['action']) && $_GET['action'] == 'valid_prodcuts') {
+    $controller->valid_prodcuts();
+}else if(isset($_GET['action']) && $_GET['action'] == 'sell') {
+    $id=$_GET["id"];
+    $controller->sell($id);
 }
+
+
+
+/*
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        load_data();
+        function load_data(query)
+          {
+              $.ajax({
+                  url:"../controller/authenitication.php?action=search",
+                  method:"post",
+                  data:{query:query},
+                  success:function(data)
+                  {
+                      $('#view-tbl').html(data);
+                  }
+              });
+          }
+
+        $('#search_text').keyup(function(){
+            var search = $(this).val();
+            if(search != '')
+            {
+                load_data(search);
+            }
+            else
+            {
+                load_data();
+            }
+        });
+    });
+
+
+
+
+
+<table id="table-data">
+            <thead>
+            <tr>
+                <th>User ID</th>
+                <th scope="col">User Name</th>
+                <th scope="col">Job Position</th>
+                <th scope="col">Active/non-Active</th>
+                <th scope="col">View Details</th>
+            </tr>
+            </thead>
+            <tbody>
+                    <?php
+
+                       foreach ($sql as $k => $v){
+                             ?>
+
+
+            <tr>
+                 <td><?php echo $sql[$k]["emp_id"] ?></td>
+                <td><?php echo $sql[$k]["username"] ?></td>
+                 <td><?php echo $sql[$k]["position"] ?></td>
+                <td><label class="switch">
+
+                        <input type="checkbox" id="active" onclick="active()">
+                        <span class="slider round"></span>
+
+                    </label>
+                </td>
+                <td><a href="../controller/authenitication.php?action=view_profile&id=<?php  echo $sql[$k]["emp_id"]; ?>" class="view"><button>View</button></a></td>
+            </tr>
+                      <?php
+
+                         } ?>
+            </tbody>
+
+
+        </table>
+*/

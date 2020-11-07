@@ -5,9 +5,6 @@ $data=new inventory_maintain();
 $sql=$data->view_suppliers();
 ?>
 
-<head>
-    <script type="text/javascript" src="../public/js/authentification.js"></script>
-</head>
 <div class="content">
 
     <h1> USER DETAILS</h1>

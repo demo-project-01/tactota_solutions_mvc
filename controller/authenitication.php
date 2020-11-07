@@ -49,7 +49,7 @@ class authenitication
                     $_SESSION['emp_id'] = $row;
                     $_SESSION['role']=$role;
                     $_SESSION['success'] = "You are now logged in";
-                    header('location: ../views/admin_dashbord.php');
+                    header('location: ../views/admin.php');
                 } elseif ($role == "Clerk") {
                     $_SESSION['username'] = $username;
                     $_SESSION['emp_id']=$row;
@@ -215,10 +215,10 @@ class authenitication
     public function active_user()
     {
 
-        return $this->auth->get_details();
+       // return $this->auth->get_details();
     }
 
-    public function sent_view_profile($id)
+    public function sent_view_profile($id)//
     {
        // echo "Hello world";
      //   print_r($id);
@@ -238,13 +238,13 @@ class authenitication
         print_r($row['address']);
       */
        $_SESSION['row']=$row;
-       header('location: ../views/test.php');
+       header('location: ../views/view_profile.php');
 
     }
 
     public function active_account($id)
     {
-         print_r();
+        // print_r();
     }
 
     public function sendverifiedemail($email, $token)
@@ -253,6 +253,30 @@ class authenitication
         print_r($token);
     }
 
+    public function search_details()
+    {
+     //   print_r($search);
+    //    $search = $_POST['query'];
+      //  $run =  $this->auth->search_details($search);
+     //  print_r($run);
+//        $_SESSION['run']=$run;
+     //   header('location: ../views/clerk_active_user_search.php');
+
+     if(isset($_POST['query'])){
+
+           $search = $_POST['query'];
+      //
+         $run =  $this->auth->search_details($search);
+          $_SESSION['run']=$run;
+        // print_r($run);
+       //  header('location: ../views/clerk_active_user_search.php');
+     }else{
+         $run=$this->auth->get_details();
+         $_SESSION['run']=$run;
+         //header('location: ../views/clerk_active_user_search.php');
+        // print_r($run);
+     }
+    }
 
 
 }
@@ -283,4 +307,15 @@ class authenitication
           //   print_r($email);
             // print_r($token);
              $controller->sendverifiedemail($email,$token);
+         }else if(isset($_GET['action']) && $_GET['action'] == '' ) {
+             //$email=$_GET["id"];
+             //$token=$_GET['id2'];
+            // $search = $_POST['query'];
+         //    print_r($search);
+
+             $controller->search_details();
+         }else if(isset($_GET['action']) && $_GET['action'] == 'update_profile' ) {
+                 $emp_id=$_SESSION['emp_id'];
+               print_r($emp_id);
+          //   $controller->search_details();
          }

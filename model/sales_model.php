@@ -58,6 +58,15 @@ class sales_model
 
     }
 
+    public function view_products(){
+        $query = $this->mysqli->query("SELECT product.quantity,product.p_id,product.p_name,product.brand_name,product.model_no,product.p_cost,product.warranty,item.sales_price FROM product INNER JOIN item ON product.p_id=item.p_id");
+        while ($row = $query->fetch_assoc()) {
+
+               $result[] = $row;
+        }
+        return $result;
+    }
+
 
 
 }

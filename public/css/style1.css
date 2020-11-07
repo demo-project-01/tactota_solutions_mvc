@@ -210,5 +210,70 @@ label #sidebar_btn:hover{
     display: none;
 }
 
+.main-box {
+    border: 25px solid#3b503d;
+    display: flex;
+    margin: 2em auto;
+    width: 60%;
+    background: whitesmoke;
+    background-size: cover;
+    margin-left: 20%;
+    margin-top: 10%;
+    text-align: center;
+    margin-bottom: 10%;
+}
 
+input[type="new-btn"] {
+    font-size: 1.5em/*.9em*/;
+    color: rgb(0, 0, 0);
+    background: #007042;
+    outline: none;
+    border: 1px solid #007042;
+    cursor: pointer;
+    padding: 0.9em;
+    -webkit-appearance: none;
+    width: 60%;
+    margin: 2em 0;
+    letter-spacing: 4px;
+    text-align: center;
+}
 
+input[type="new-btn"]:hover {
+    -webkit-transition: .5s all;
+    -moz-transition: .5s all;
+    -o-transition: .5s all;
+    -ms-transition: .5s all;
+    transition: .5s all;
+    background:grey;
+}
+
+.sub-box{
+    padding: 1em;
+    width: 50%;
+    margin: 2em auto;
+}
+.col-25 {
+    float: left;
+    width: 25%;
+    margin-top: 6px;
+}
+.col-50 {
+    float: left;
+    width: 50%;
+    margin-top: 6px;
+}
+
+.col-75 {
+    float: left;
+    width: 75%;
+    margin-top: 6px;
+}
+.label1{
+    padding: 12px 12px 12px 0;
+    display: inline-block;
+}
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}

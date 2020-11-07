@@ -31,7 +31,7 @@
 
                 <i class="far fa-user-circle fa-2x"></i>
                 <ul class="menu">
-                    <li><a href="profile.php"><i class="fas fa-user-alt"></i>Profile</a></li>
+                    <li><a href="../controller/authenitication.php?action=update_profile"><i class="fas fa-user-alt"></i>Profile</a></li>
                     <li><a href="../controller/authenitication.php?action=logout"><i class="fas fa-sign-out-alt"></i>Log out</a></li>
                 </ul>
             </div>
@@ -45,7 +45,7 @@
 
     <a href="clerk.php"><i class="fas fa-home"></i></i><span>Dashboard</span></a>
     <a href="newproduct.php"><i class="fas fa-cart-plus"></i></i><span>Add Product</span></a>
-    <a href="updateproduct.php"><i class="fas fa-edit"></i></i><span>Update Product</span></a>
+    <a href="list_updateproduct.php"><i class="fas fa-edit"></i></i><span>Update Product</span></a>
     <a href="#"><i class="fas fa-inbox"></i></i><span>Indox</span></a>
     <a href="#"><i class="fas fa-cart-arrow-down"></i></i><span>Return Product</span></a>
     <a href="clerk_active_user.php"><i class="fas fa-users"></i></i><span>Users</span></a>

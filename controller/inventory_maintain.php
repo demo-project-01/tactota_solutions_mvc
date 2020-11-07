@@ -1,6 +1,6 @@
 <?php
 require_once("../model/inventory_maintain_model.php");
-
+session_start();
 class inventory_maintain
 {
     public function __construct()
@@ -60,7 +60,7 @@ class inventory_maintain
 
     public function supplier_profile($id)
     {
-         print_r($id);
+        // print_r($id);
         $row = $this->inven->get_view_details($id);
         echo "<br>";
         print_r($row['sup_name']);
@@ -70,11 +70,50 @@ class inventory_maintain
         print_r($row['address']);
         echo "<br>";
         print_r($row['telephone_no']);
+
     }
 
     public function update_product(){
 
        return $this->inven->get_product_details();
+    }
+
+    public function view_product_details($id)
+    {
+         //print_r($id);
+        $row= $this->inven->get_view_product_details($id);
+          //$p=$row['pp_name'];
+       //   print_r($row);
+         // print_r($row['p_name']);
+          // echo "<br>";
+    //      print_r($row['p_id']);
+         $_SESSION['product_details']=$row;
+        // print_r($_SESSION['product_details']);
+        header('location: ../views/update_product.php');
+
+    }
+
+    public function update_product_details($id)
+    {
+
+        $reorder_level=$warranty=$p_cost=$sales_price="";
+        $reorder_level=$_POST['reorder_level'];
+        $warranty=$_POST['warranty'];
+        $p_cost=$_POST['p_cost'];
+        $sales_price=$_POST['sales_price'];
+      //  print_r($reorder_level);
+        //echo "<br>";
+       // print_r($warranty);
+        //echo "<br>";
+       // print_r($p_cost);
+        // echo "<br>";
+       // print_r($sales_price);
+        $row=$this->inven->update_product_details($id,$reorder_level,$warranty,$p_cost,$sales_price);
+        if ($row == "0") {
+            header('location: ../views/update_product.php');
+        }else{
+            header('location: ../views/list_updateproduct.php');
+        }
     }
 }
 
@@ -90,4 +129,10 @@ if(isset($_GET['action']) && $_GET['action'] == "newsuppliers") {
     $controller->supplier_profile($id);
 }else if(isset($_GET['action']) && $_GET['action'] == 'update_product') {
     $controller->update_product();
+}else if(isset($_GET['action']) && $_GET['action'] == 'view_product_details') {
+    $id=$_GET["id"];
+    $controller->view_product_details($id);
+}else if(isset($_GET['action']) && $_GET['action'] == 'update_product_details') {
+    $id=$_GET["id"];
+    $controller->update_product_details($id);
 }

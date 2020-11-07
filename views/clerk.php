@@ -3,20 +3,30 @@
 ?>
 <body>
 <div class="content">
-    <div class= "dash1">
+    <div>
+        <div class= "dash1">
+            <b><p class="dash">hello world</p></b>
+        </div>
+
         <div class= "dash2">
+            <b><p class="dash">hello world</p></b>
         </div>
     </div>
-    <div class= "dash3">
+
+    <div>
+        <div class= "dash3">
+            <b><p class="dash">hello world</p></b>
+        </div>
         <div class= "dash4">
+            <b><p class="dash">hello world</p></b>
         </div>
     </div>
-    
+
     <div class="wrapper">
         <div class="list_wrap">
             <div class="subcontent">
-        <h1><p>Stock Reminders</p></h1>
-        </div>
+                <h1><p>Stock Reminders</p></h1>
+            </div>
             <ul>
                 <li class="github">
                     <div class="list">
@@ -43,25 +53,25 @@
                     <div class="list">
                         <div class="contentc">
                             <b>item4</b>
-                        </div> 
+                        </div>
                     </div>
                 </li>
                 <li class="quora">
                     <div class="list">
                         <div class="contentc">
                             <b>item5</b>
-                        </div> 
+                        </div>
                     </div>
                 </li>
                 <div class="view">
-                <b><a href="#"><span>View All Products</span></a></b>
+                    <b><a href="#"><span>View All Products</span></a></b>
                 </div>
             </ul>
         </div>
-    </div> 
+    </div>
     <div class="footer">
-	<p>© Tactota Solutions All rights reserved </p>
-   </div>
+        <p>© Tactota Solutions All rights reserved </p>
+    </div>
 </div>
-</body>
+</body
   

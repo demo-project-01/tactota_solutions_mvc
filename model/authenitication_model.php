@@ -3,7 +3,7 @@
 
 class authenitication_model{
 
-    public string $result = "";
+  //  public string $result = "";
 
 
        public function __construct() {
@@ -127,6 +127,17 @@ class authenitication_model{
             }
             return $result;
 
+    }
+
+    public function search_details($search){
+        $result = "";
+        $query = $this->mysqli->query("SELECT * FROM user_account INNER JOIN employee ON user_account.emp_id=employee.emp_id AND user_account.username='" . $search . "'");
+        if ($query->num_rows > 0) {
+            while ($row = $query->fetch_assoc()) {
+                $result = $row;
+            }
+            return $result;
+        }
     }
 
 }
