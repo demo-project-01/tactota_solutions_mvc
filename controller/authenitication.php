@@ -105,12 +105,12 @@ class authenitication
          $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
          $mail->Port = 587;
 
-         $mail->Username = ''; // YOUR gmail email
-         $mail->Password = ''; // YOUR gmail password
+         $mail->Username = 'projectt541@gmail.com'; // YOUR gmail email
+         $mail->Password = '#project32'; // YOUR gmail password
 
          // Sender and recipient settings
-         $mail->setFrom('', 'Sender Name');
-         $mail->addAddress($email,);
+         $mail->setFrom('projectt541@gmail.com', 'Sender Name');
+         $mail->addAddress($email);
          //$mail->addReplyTo('example@gmail.com', 'Sender Name'); // to set the reply to
 
          // Setting the email content
@@ -277,11 +277,11 @@ class authenitication
          $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
          $mail->Port = 587;
 
-         $mail->Username = ''; // YOUR gmail email
-         $mail->Password = ''; // YOUR gmail password
+         $mail->Username = 'projectt541@gmail.com'; // YOUR gmail email
+         $mail->Password = '#project32'; // YOUR gmail password
 
          // Sender and recipient settings
-         $mail->setFrom('', 'Sender Name');
+         $mail->setFrom('projectt541@gmail.com', 'Sender Name');
          $mail->addAddress($email, $firstname);
          //$mail->addReplyTo('example@gmail.com', 'Sender Name'); // to set the reply to
 
