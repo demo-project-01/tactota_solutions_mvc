@@ -1,6 +1,10 @@
 <?php
   require_once("../model/authenitication_model.php");
-  //require_once('../vendor/vendor/autoload.php');
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+ // require_once('../vendor/autoload.php');
 
 
 
@@ -16,6 +20,7 @@ class authenitication
     {
 
         $this->auth = new authenitication_model();
+
 
     }
 
@@ -68,36 +73,81 @@ class authenitication
     }
     public function forgotpassword()
     {
-          //echo "string";
+            $token=$username="";
           $email = $_POST['email'];
         if (empty($email)) {
             $errors['email'] = "Username is required";
         }
         $row = $this->auth->valid_email($email);
+
         if ($row == "0") {
 
             header('location: ../views/forgetpassword.php');
         }
         else
         {
+                // print_r($username);
+               //  print_r($token);
+           $this->send_email_rest_password($email,$row);
 
 
-            $this->var ='hello world';
-            header('location: ../views/resetpassword.php');
 
          }
 
         }
+     public function send_email_rest_password($email,$row){
+         require_once "../vendor/autoload.php";
+         $mail = new PHPMailer(true);
+         // $mail->SMTPDebug = SMTP::DEBUG_SERVER; // for detailed debug output
+         $mail->isSMTP();
+         $mail->Host = 'smtp.gmail.com';
+         $mail->SMTPAuth = true;
+         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+         $mail->Port = 587;
 
-    public function resetpassword()
+         $mail->Username = 'mnjrathnayaka97@gmail.com'; // YOUR gmail email
+         $mail->Password = '#Mnjr1122'; // YOUR gmail password
+
+         // Sender and recipient settings
+         $mail->setFrom('mnjrathnayaka97@gmail.com', 'Sender Name');
+         $mail->addAddress($email,);
+         //$mail->addReplyTo('example@gmail.com', 'Sender Name'); // to set the reply to
+
+         // Setting the email content
+         $mail->IsHTML(true);
+         $mail->Subject = "Send email using Gmail SMTP and PHPMailer";
+         $mail->Body = 'reset password <html><?php  ?></html>   <b><a href="http://localhost/tactota_solutions/views/reset_password.php?key=' . $email . '&token='.$row.'">Click To Reset Password!</a></b> ';
+         $mail->AltBody = 'Plain text message body for non-HTML email client. Gmail SMTP email body.';
+
+         $result=$mail->send();
+         if($result==false){
+             echo "worng";
+         }else{
+             header('location: ../views/check_email');
+         }
+
+     }
+
+    public function reset_password($key)
     {
-        $password = $_POST['password'];
-        $cpassword = $_POST['cpassword'];
+
+        $password = md5($_POST['password']);
+        $cpassword = md5($_POST['cpassword']);
+
+       //  print_r($key);
+       //  print_r($token);
+       //  print_r($password);
+        // print_r($cpassword);
         if($password != $cpassword){
-            header('location: ../views/resetpassword.php');
+            header('location: ../views/forgotpassword.php');
         }else{
-            echo "correct";
-            print $this->var;
+            $result=$this->auth->update_password($key,$password);
+
+              if($result==false){
+                 echo "wrong";
+              }else{
+                  header('location: ../views/login.php');
+              }
         }
 
 
@@ -194,11 +244,19 @@ class authenitication
               }
              else{
                    $emp_id = $this->auth->getempid();
-                    echo $emp_id;
+                   // echo $emp_id;
                     if($this->auth->emp_register($emp_id,$firstname,$middlename,$lastname,$nic,$address,$image,$job_position,$mobile_no,$dob,$username,$password,$email,$verifed,$token) !=0){
-                     // header('location:authenitication.php?action=sendverifiedemail&id=$email&id2=$token');
-                     header('location: ../views/successful_register.php');
-                   }else{
+
+                        // header('location:authenitication.php?action=sendverifiedemail&id=$email&id2=$token');
+
+                        //header('location: ../views/successful_register.php');
+
+                        $result=$this->send_email($email,$firstname,$token,$emp_id);
+                        if($result==true){
+                            header('location: ../views/successful_register.php');
+                        } else
+                          echo "Error in sending email";
+                    }else{
                           echo "wrong";
                    }
 
@@ -207,7 +265,40 @@ class authenitication
               }
 
 
+
      }
+     public function send_email($email,$firstname,$token,$emp_id){
+         require_once "../vendor/autoload.php";
+         $mail = new PHPMailer(true);
+        // $mail->SMTPDebug = SMTP::DEBUG_SERVER; // for detailed debug output
+         $mail->isSMTP();
+         $mail->Host = 'smtp.gmail.com';
+         $mail->SMTPAuth = true;
+         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+         $mail->Port = 587;
+
+         $mail->Username = 'mnjrathnayaka97@gmail.com'; // YOUR gmail email
+         $mail->Password = '#Mnjr1122'; // YOUR gmail password
+
+         // Sender and recipient settings
+         $mail->setFrom('mnjrathnayaka97@gmail.com', 'Sender Name');
+         $mail->addAddress($email, $firstname);
+         //$mail->addReplyTo('example@gmail.com', 'Sender Name'); // to set the reply to
+
+         // Setting the email content
+         $mail->IsHTML(true);
+         $mail->Subject = "Send email using Gmail SMTP and PHPMailer";
+         $mail->Body = 'HTML message body. <b><a href="http://localhost/tactota_solutions/controller/authenitication.php?action=verify_account&id=' . $emp_id . '&token='.$token.'">Verify Email!</a></b> SMTP email body.';
+         $mail->AltBody = 'Plain text message body for non-HTML email client. Gmail SMTP email body.';
+
+         $result=$mail->send();
+         if($result>0){
+             return true;
+         }else{
+             return false;
+         }
+     }
+
      public function  user_details(){
           print_r($_SESSION['emp_id']);
      }
@@ -215,15 +306,15 @@ class authenitication
     public function active_user()
     {
 
-       // return $this->auth->get_details();
+       return $this->auth->get_details();
     }
 
-    public function sent_view_profile($id)//
+    public function sent_view_profile($id)
     {
        // echo "Hello world";
      //   print_r($id);
        $row = $this->auth->get_view_details($id);
-     //   $jason_str=json_encode($row);
+
       /*  echo "<br>";
         print_r($row['first_name']);
         echo "<br>";
@@ -247,11 +338,6 @@ class authenitication
         // print_r();
     }
 
-    public function sendverifiedemail($email, $token)
-    {
-        print_r($email);
-        print_r($token);
-    }
 
     public function search_details()
     {
@@ -278,6 +364,20 @@ class authenitication
      }
     }
 
+    public function verify_account($emp_id,$token)
+    {
+
+
+              $row=$this->auth->active_employee_email($emp_id,$token);
+              if($row=='0'){
+                  echo "wrong";
+              }else{
+                 header('location: ../views/login.php');
+                  //echo "suesss";
+              }
+
+    }
+
 
 }
         $controller = new authenitication();
@@ -287,8 +387,9 @@ class authenitication
            $controller->login();
        }else if(isset($_GET['action']) && $_GET['action'] == 'forgotpassword') {
           $controller->forgotpassword();
-      }else if(isset($_GET['action']) && $_GET['action'] == 'resetpassword') {
-          $controller->resetpassword();
+      }else if(isset($_GET['action']) && $_GET['action'] == 'reset_password') {
+               $key=$_GET['key'];
+          $controller->reset_password($key);
       }else if(isset($_GET['action']) && $_GET['action'] == 'logout') {
           $controller->logout();
       }else if(isset($_GET['action']) && $_GET['action'] == 'user_details') {
@@ -301,21 +402,18 @@ class authenitication
          }else if(isset($_GET['action']) && $_GET['action'] == 'active_account' ) {
              $id=$_GET["id"];
              $controller->active_account($id);
-         }else if(isset($_GET['action']) && $_GET['action'] == 'sendverifiedemail' ) {
-             $email=$_GET["id"];
-             $token=$_GET['id2'];
-          //   print_r($email);
-            // print_r($token);
-             $controller->sendverifiedemail($email,$token);
          }else if(isset($_GET['action']) && $_GET['action'] == '' ) {
-             //$email=$_GET["id"];
-             //$token=$_GET['id2'];
-            // $search = $_POST['query'];
-         //    print_r($search);
 
              $controller->search_details();
          }else if(isset($_GET['action']) && $_GET['action'] == 'update_profile' ) {
                  $emp_id=$_SESSION['emp_id'];
                print_r($emp_id);
           //   $controller->search_details();
+         }else if(isset($_GET['action']) && $_GET['action'] == 'verify_account' ) {
+             $emp_id="";
+
+             $emp_id=$_GET["id"];
+             $token=$_GET['token'];
+
+               $controller->verify_account($emp_id,$token);
          }

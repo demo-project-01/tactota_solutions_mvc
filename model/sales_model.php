@@ -67,6 +67,15 @@ class sales_model
         return $result;
     }
 
+     public function dashbord_search($id){
+         $result = "";
+         $query = $this->mysqli->query("SELECT p_name FROM product where p_id='" . $id . "'");
+
+         while ($row = $query->fetch_assoc()) {
+             $result = $row;
+         }
+         return $result;
+     }
 
 
 }

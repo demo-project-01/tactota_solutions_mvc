@@ -14,7 +14,7 @@ class authenitication_model{
            {
 
                $result = "";
-               $query = $this->mysqli->query("SELECT * FROM user_account WHERE username='" . $username . "' AND password='" . $password . "'");
+               $query = $this->mysqli->query("SELECT * FROM user_account WHERE username='" . $username . "' AND password='" . $password . "' AND verified=1");
                if ($query->num_rows > 0) {
                    while ($row = $query->fetch_assoc()) {
                        $result = $row['emp_id'];
@@ -40,10 +40,10 @@ class authenitication_model{
     public function valid_email($email)
     {
         $result = "";
-        $query = $this->mysqli->query("SELECT * FROM user_account WHERE email='" . $email . "'");
+        $query = $this->mysqli->query("SELECT token FROM user_account WHERE email='" . $email . "'");
         if ($query->num_rows > 0) {
             while ($row = $query->fetch_assoc()) {
-                $result = $row['username'];
+                $result = $row['token'];
             }
             return $result;
         }else
@@ -137,6 +137,28 @@ class authenitication_model{
                 $result = $row;
             }
             return $result;
+        }
+    }
+
+    public function active_employee_email($emp_id,$token){
+           $verified=1;
+        $stmt = $this->mysqli->prepare("UPDATE employee INNER JOIN user_account ON employee.emp_id =user_account.emp_id  SET  user_account.verified= ?
+                                        WHERE employee.emp_id=? AND user_account.token=?");
+        if($stmt==FALSE)
+            return 0;
+        else{
+            $stmt->bind_param('sss',$verified,$emp_id,$token);
+            return $stmt->execute();
+        }
+    }
+
+    public function update_password($key,$password){
+        $stmt = $this->mysqli->prepare("UPDATE  user_account  SET  password=? WHERE email=?");
+        if($stmt==FALSE)
+            return 0;
+        else{
+            $stmt->bind_param('ss',$password,$key);
+            return $stmt->execute();
         }
     }
 

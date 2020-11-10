@@ -51,6 +51,13 @@ class sales
    //   header('location: ../views/bill.php');
     }
 
+    public function dashbord_search($id)
+    {
+        // print_r($id);
+        $row=$this->sale->dashbord_search($id);
+        echo $row;
+    }
+
 }
 $controller = new sales();
 if(isset($_GET['action']) && $_GET['action'] == "get_supplier_names") {
@@ -62,12 +69,15 @@ if(isset($_GET['action']) && $_GET['action'] == "get_supplier_names") {
 }else if(isset($_GET['action']) && $_GET['action'] == 'sell') {
     $id=$_GET["id"];
     $controller->sell($id);
+}else if(isset($_GET['action']) && $_GET['action'] == '') {
+     $id=$_POST['search'];
+    $controller->dashbord_search($id);
 }
 
 
 
 /*
-
+dashbord_search
 <script type="text/javascript">
     $(document).ready(function(){
         load_data();
