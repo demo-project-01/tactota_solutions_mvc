@@ -18,7 +18,7 @@ $sql=$data->get_supplier_names();
         <input class="text" type="text" name="sales_price" placeholder="sales_price" required="">
         <label for="cars">supplier:</label>
 
-        <select id="cars" name="supplier">
+        <select id="newproduct" name="supplier">
             <?php
 
             foreach ($sql as $k => $v){

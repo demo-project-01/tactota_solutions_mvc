@@ -26,11 +26,14 @@ class sales
         $sales_price = $_POST['sales_price'];
         $serial_number = $_POST['serial_number'];
         $reorder_level = $_POST['reorder_level'];
-        $product_status="active";
-        $item_status="active";
+        $product_status=true;
+        $item_status=true;
         $product_date=date("Y-m-d");
         $product_id = $this->sale->get_product_id();
-     //   print_r($product_status);
+
+ //           $serial_number = $_POST['serial_number[]'];
+
+       ///     }
       //  print_r($product_date);
        // print_r($item_status);
       //  print_r($product_id);

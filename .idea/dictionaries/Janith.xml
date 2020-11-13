@@ -4,8 +4,10 @@
       <w>authenitication</w>
       <w>authentification</w>
       <w>dashbord</w>
+      <w>delect</w>
       <w>lastname</w>
       <w>moblile</w>
+      <w>mytable</w>
       <w>newproduct</w>
       <w>newsuppliers</w>
       <w>pname</w>
@@ -14,6 +16,7 @@
       <w>quntity</w>
       <w>sendverifiedemail</w>
       <w>updateproduct</w>
+      <w>warrenty</w>
     </words>
   </dictionary>
 </component>

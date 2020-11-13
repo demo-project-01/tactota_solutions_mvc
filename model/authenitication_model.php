@@ -111,7 +111,7 @@ class authenitication_model{
 
     public function get_details()
     {
-        $query = $this->mysqli->query("SELECT user_account.emp_id,username,position FROM user_account INNER JOIN employee ON user_account.emp_id=employee.emp_id");
+        $query = $this->mysqli->query("SELECT user_account.emp_id,username,position,verified FROM user_account INNER JOIN employee ON user_account.emp_id=employee.emp_id ORDER BY emp_id ASC");
         while ($row = $query->fetch_assoc()) {
             $result[] = $row;
         }
@@ -162,4 +162,13 @@ class authenitication_model{
         }
     }
 
+    public function active_inactive_account($id,$option){
+        $stmt = $this->mysqli->prepare("UPDATE  user_account  SET  verified=? WHERE emp_id=?");
+        if($stmt==FALSE)
+            return 0;
+        else{
+            $stmt->bind_param('ss',$option,$id);
+            return $stmt->execute();
+        }
+    }
 }

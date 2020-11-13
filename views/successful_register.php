@@ -23,10 +23,10 @@
 
             </form>
             <br/>
-            <a
 
 
-            <a href="login.php" class="next">Login</a>
+
+            <a href="login.php"><input type="submit" value="Login"></a>
 
         </div>
 

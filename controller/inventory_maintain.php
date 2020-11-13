@@ -31,8 +31,8 @@ class inventory_maintain
             $errors['email'] = "Email is required";
         }
 
-        $row = $this->inven->valid_email($email);
         $row1 = $this->inven->valid_name($name);
+        $row = $this->inven->valid_email($email);
 
         if ($row != "0") {
 
@@ -101,19 +101,53 @@ class inventory_maintain
         $warranty=$_POST['warranty'];
         $p_cost=$_POST['p_cost'];
         $sales_price=$_POST['sales_price'];
-      //  print_r($reorder_level);
+      // print_r($reorder_level);
         //echo "<br>";
        // print_r($warranty);
         //echo "<br>";
        // print_r($p_cost);
         // echo "<br>";
        // print_r($sales_price);
-        $row=$this->inven->update_product_details($id,$reorder_level,$warranty,$p_cost,$sales_price);
+       $row=$this->inven->update_product_details($id,$reorder_level,$warranty,$p_cost,$sales_price);
         if ($row == "0") {
             header('location: ../views/update_product.php');
         }else{
             header('location: ../views/list_updateproduct.php');
         }
+    }
+
+    public function view_one_product_details($id)
+    {
+        //print_r($id);
+        $row= $this->inven->get_view_product_details($id);
+        //$p=$row['pp_name'];
+     //     print_r($row);
+        // print_r($row['p_name']);
+        // echo "<br>";
+        //      print_r($row['p_id']);
+        $_SESSION['one_product_details']=$row;
+        // print_r($_SESSION['product_details']);
+      header('location: ../views/view_one_product.php');
+
+    }
+
+    public function delete_product_details($id)
+    {
+        print_r($id);
+        $row= $this->inven->get_delete_product_details($id);
+        $quantity=$row['quantity'];
+        $count_serial_number=$row['COUNT(item.serial_no)'];
+        $value=false;
+        print_r($quantity);
+        echo "</br>";
+        print_r($count_serial_number);
+        $row= $this->inven->delete_product_details($id,$quantity,$count_serial_number,$value);
+        if($row=="0"){
+            echo "wrong";
+        }else{
+            header('location: ../view/list_updateproduct.php');
+        }
+        // header('location: ../view/list_updateproduct.php');
     }
 }
 
@@ -135,4 +169,10 @@ if(isset($_GET['action']) && $_GET['action'] == "newsuppliers") {
 }else if(isset($_GET['action']) && $_GET['action'] == 'update_product_details') {
     $id=$_GET["id"];
     $controller->update_product_details($id);
+}else if(isset($_GET['action']) && $_GET['action'] == 'delete_product_details') {
+    $id=$_GET["id"];
+    $controller->delete_product_details($id);
+}else if(isset($_GET['action']) && $_GET['action'] == 'view_one_product_details') {
+    $id=$_GET["id"];
+    $controller->view_one_product_details($id);
 }

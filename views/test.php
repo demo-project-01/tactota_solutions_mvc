@@ -1,80 +1,58 @@
 <?php
 include 'clerk_sidebar.php';
-require '../controller/authenitication.php';
-$data=new authenitication();
-$sql=$data->active_user();
-
+require '../controller/sales.php';
+$data=new sales();
+$sql=$data->get_supplier_names();
 ?>
 <head>
-    <script type="text/javascript" src="../public/js/authentification.js"></script>
+
+    <link href="../public/css/signup.css" rel="stylesheet" type="text/css"/>
+    <link href="../public/css/new_product.css" rel="stylesheet" type="text/css"/>
 </head>
+
 <div class="content">
+    <h2>Add new product</h2>
 
-    <h1> USER DETAILS</h1>
+    <div class="main-container" id="reg-main">
 
-    <div class="main-container" id="view-tbl">
-        <div class="search">
-            <input type="text" placeholder="Search.." id="search_text" >
+        <div class="sub-container">
+
+            <form action="../controller/authenitication.php?action=register" method="post">
+
+                      <input class="text" type="text" name="product_name" placeholder="Product Name" required="">
+
+                      <input class="text" type="text" name="brand_name" placeholder="Brand Name" required="">
+                      <input class="text" type="text" name="model_number" placeholder="Model Number" required="">
+                      <input class="text" type="text" name="quantity" placeholder="Quantity" required="">
+                      <input class="text" type="text" name="product_cost" placeholder="Product Cost" required="">
+                      <input class="text" type="text" name="sales_price" placeholder="Sales Price" required="">
+                      <input class="text" type="text" name="warranty_period" placeholder="Warranty Period(Month) " required="">
+                <div class="container">
+                    <div class="main">
+                      <select class="select_supplier" id="cars" name="supplier name" style="float: left; ">
+                    <?php
+
+                    foreach ($sql as $k => $v){
+                        ?>
+                        <option value="<?php echo $sql[$k]["sup_id"] ?>"><?php echo $sql[$k]["sup_name"] ?></option>
+                        <?php
+                    }
+                    ?>
+                  </select>
+                    </div>
+                </div>
+                      <input class="text" type="text" name="reorder_level" placeholder="Reorder Level" required="">
+
+                       <input type="submit" style="width: 100px; float: left; " value="Add">
+
+
+
+            </form>
         </div>
+
     </div>
-    <div class="main-container" id="view-tbl">
-        <table>
-            <thead>
-            <tr>
-                <th>User ID</th>
-                <th scope="col">User Name</th>
-                <th scope="col">Job Position</th>
-                <th scope="col">Active/non-Active</th>
-                <th scope="col">View Details</th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php
 
-            foreach ($sql as $k => $v){
-                ?>
-
-
-                <tr>
-                    <td><?php echo $sql[$k]["emp_id"] ?></td>
-                    <td><?php echo $sql[$k]["username"] ?></td>
-                    <td><?php echo $sql[$k]["position"] ?></td>
-                    <td><label class="switch">
-
-                            <input type="checkbox" id="active" onclick="active()">
-                            <span class="slider round"></span>
-
-                        </label>
-                    </td>
-                    <td><a href="../controller/authenitication.php?action=view_profile&id=<?php  echo $sql[$k]["emp_id"]; ?>" class="view"><button>View</button></a></td>
-                </tr>
-                <?php
-
-            } ?>
-            </tbody>
-
-
-        </table>
-    </div>
 </div>
 </div>
 </body>
 
-
-<script>
-    $(document).ready(function () {
-           load_data();
-           function load_data(query){
-               $.ajax({
-                   url:"",
-                   method:"POST",
-                   data:{query:query},
-                   success:function (data) {
-
-                   }
-               });
-           }
-    });
-
-
-</script>

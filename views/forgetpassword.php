@@ -12,7 +12,10 @@
 <div>
     <h1>Forgot Password</h1>
     <br/>
-
+    <br/>
+    <br/>
+    <br/>
+    <br/>
 
     <div class="main-container">
         <div class="sub-container">

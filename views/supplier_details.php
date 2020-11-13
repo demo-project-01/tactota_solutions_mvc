@@ -7,7 +7,7 @@ $sql=$data->view_suppliers();
 
 <div class="content">
 
-    <h1> USER DETAILS</h1>
+    <h1> Supplier Details</h1>
 
     <div>
         <a href="add_suppliers.php" class="next">Add Suppliers</a>
@@ -23,6 +23,7 @@ $sql=$data->view_suppliers();
             <thead>
             <tr>
                 <th>Supplier Name</th>
+                <th>Action</th>
 
             </tr>
             </thead>
@@ -35,9 +36,9 @@ $sql=$data->view_suppliers();
 
 
                 <tr>
-                    <td><?php echo $sql[$k]["sup_name"] ?>
+                    <td><?php echo $sql[$k]["sup_name"] ?> </td>
 
-                    <a href="../controller/inventory_maintain.php?action=supplier_profile&id=<?php  echo $sql[$k]["sup_id"]; ?>" class="view"><button>View</button></a>
+                    <td><a href="../controller/inventory_maintain.php?action=supplier_profile&id=<?php  echo $sql[$k]["sup_id"]; ?>" class="view"><button>View</button></a>
                     </td>
 
 

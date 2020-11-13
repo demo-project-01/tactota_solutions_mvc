@@ -2,7 +2,7 @@
    include 'clerk_sidebar.php';
 ?>
 <body>
-<div class="content">
+<div class="content" style="width: auto;">
     <div>
         <div class= "dash1">
             <b><p class="dash">hello world</p></b>

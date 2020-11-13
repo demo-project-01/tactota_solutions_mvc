@@ -5,19 +5,18 @@ include 'admin_sidebar.php';
 <div class="content">
     <div>
         <div class="income1">
-            <b><p class="incomes">EMPLOYEES</p></b>
-
+            <b><p class="incomes">hello world</p></b>
         </div>
         <div class="income2">
-            <b><p class="incomes">PRODUCT</p></b>
+            <b><p class="incomes">hello world</p></b>
         </div>
     </div>
     <div>
         <div class="income3">
-            <b><p class="incomes">SUPPLER</p></b>
+            <b><p class="incomes">hello world</p></b>
         </div>
         <div class="income4">
-            <b><p class="incomes"></p></b>
+            <b><p class="incomes">hello world</p></b>
         </div>
     </div>
     <div class="wrapper">

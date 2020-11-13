@@ -26,6 +26,7 @@ $sql=$data->valid_prodcuts();
                 <th>Warranty</th>
                 <th>Product Cost</th>
                 <th>Sale Price</th>
+                <th>Action</th>
 
 
             </tr>

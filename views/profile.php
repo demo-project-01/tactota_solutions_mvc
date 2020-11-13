@@ -13,12 +13,11 @@ session_start();
 
 
 ?>
-
 <div class="content">
     <head>
         <title>Tactota Solutions</title>
-        <link rel="stylesheet" href="../public/css/signup.css">
 
+        <link href="../public/css/signup.css" rel="stylesheet" type="text/css"/>
 
     </head>
     <body>
@@ -29,129 +28,32 @@ session_start();
 
             <div class="sub-container">
 
-                <b><h1>Edit Account Info</h1></b>
+                <b><h2>Edit Account Info</h2></b>
 
-                <form action="../controller/authenitication.php?action=view_user_details.php" method="post" enctype="multipart/form-data">
-                     <div class="row">
-                         <div class="col-25">
-                    <label>First Name</label>
-                         </div>
-                         <div class="col-25">
-                        <input class="text" type="text" name="firstname" placeholder="First Name" value="<?php $firstname ="";
-                        echo $firstname ?>" required="">
-                         </div>
-                     </div>
-                    <div class="row">
-                        <div class="col-25">
-                            <label>Middle Name</label>
-                        </div>
-                        <div class="col-25">
-                            <input class="text" type="text" name="middlename" placeholder="Middle Name" value="<?php $middlename ="";
-                            echo $middlename ?>">
-                        </div>
-                    </div>
+                <form action="#" method="post">
 
-                    <div class="row">
-                        <div class="col-25">
-                            <label>Last Name</label>
-                        <div class="col-25">
-                            <input class="text" type="text" name="lastname" placeholder="Last Name" value="<?php $lastname ="";
-                            echo $lastname ?>" required="">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-25">
-                            <label>Address</label>
-                        </div>
-                        <div class="col-25">
-                            <input class="text" type="text" name="address" placeholder="Address" value="<?php $address ="";
-                            echo $address ?>" required="">
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-25">
-                            <label>Mobile Number</label>
-                        </div>
-                        <div class="col-25">
-                            <input class="text" type="text" name="moblile_no" placeholder="Mobile Number" value="<?php $mobile_no ="";
-                            echo $mobile_no ?>" required="">
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-25">
-                            <label>NIC</label>
-                        </div>
-                        <div class="col-25">
-                            <input class="text" type="text" name="nic" placeholder="NIC" value="<?php $nic ="";
-                            echo $nic ?>" required="">
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-25">
-                            <label>DOB</label>
-                        </div>
-                        <div class="col-25">
-                            <input class="text" type="text" name="dob" placeholder="DOB" value="<?php $dob ="";
-                            echo $dob ?>" required="">
-                        </div>
-                    </div>
-
-                        <div class="row">
-                            <div class="col-25">
-                                <label>Email</label>
-                            </div>
-                            <div class="col-25">
-                                <input class="text email" type="email" name="email" placeholder="Email" value="<?php $email ="";
-                                echo $email ?>" required="">
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-25">
-                                <label>Username</label>
-                            </div>
-                            <div class="col-25">
-                                <input class="text" type="text" name="username" placeholder="Username" value="<?php $username ="";
-                                echo $username ?>" required="">
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-25">
-                                <label>Password</label>
-                            </div>
-                            <div class="col-25">
-                                <input class="text" type="password" name="password" placeholder="Password" value="<?php $password ="";
-                                echo $password ?>" required="">
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-25">
-                                <label>Job Position</label>
-                            </div>
-                            <div class="col-25">
-                                <input class="text" type="text" name="text" placeholder="clerk/shop keeper/admin" value="<?php $password ="";
-                                echo $password ?>">
-                            </div>
-                        </div>
-
-
-
-
-                    </div>
+                    <input class="text" type="text" name="firstname" placeholder="First Name" required="">
+                    <input class="text" type="text" name="middlename" placeholder="Middle Name" required="">
+                    <input class="text" type="text" name="lastname" placeholder="Last Name" required="">
+                    <input class="text" type="text" name="address" placeholder="Address" required="">
+                    <input class="text" type="text" name="moblile_no" placeholder="Mobile Number" required="">
+                    <input class="text" type="text" name="nic" placeholder="NIC" required="">
+                    <input class="text" type="text" name="dob" placeholder="DOB" required="">
+                    <h5 class="left">Job Position </h5>
+                    <input class="text" type="radio" name="job_position" value="Clerk" required="">Clerk
+                    <input class="text" type="radio" name="job_position" value="Shop Keeper" required="">Shop Keeper
+            </div>
             <div class="sub-container">
-                </div></br>
-
-
-
+                </br></br>
+                <input class="text email" type="email" name="email" placeholder="Email" required="">
+                <h5 class="left">Image </h5><input class="text" type="file" name="nic" placeholder="Image" required="">
+                <input class="text" type="text" name="Username" placeholder="Username" required="">
+                <input class="text" type="password" name="password" placeholder="Password" required="">
+                <input class="text w3lpass" type="password" name="password" placeholder="Confirm Password" required="">
                 <div class="wthree-text">
                     <div class="clear"> </div>
                 </div>
-                <input type="submit" value="Update">
+                <input type="new-btn" value="Update">
                 </form>
 
             </div>
@@ -164,5 +66,3 @@ session_start();
     </div>
     </body>
 </div>
-
--->

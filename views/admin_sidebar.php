@@ -43,7 +43,7 @@
 <div class="sidebar">
     <a href="#"><i class="fas fa-home"></i></i><span>Dashboard</span></a>
     <a href="#"><i class="fas fa-cart-plus"></i></i><span>Income</span></a>
-    <a href="#"><i class="fas fa-thumbs-up"></i>Review</span></a>
+    <a href="review.php"><i class="fas fa-thumbs-up"></i>Review</span></a>
     <a href="../controller/authenitication.php?action=user_details"><i class="fas fa-users"></i></i><span>Users</span></a>
     <a href="#"><i class="fas fa-shopping-cart"></i></i><span>Sold Item</span></a>
     <a href="#"><i class="fas fa-store"></i></i><span>Stock Details</span></a>

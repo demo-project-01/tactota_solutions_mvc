@@ -97,8 +97,8 @@ class inventory_maintain_model
      }
 
     public function get_product_details(){
-
-        $query = $this->mysqli->query("SELECT * FROM  product INNER JOIN supplier_product ON product.p_id=supplier_product.p_id INNER JOIN item ON product.p_id=item.p_id ");
+    //   $result = "";
+        $query = $this->mysqli->query("SELECT * FROM  product INNER JOIN supplier_product ON product.p_id=supplier_product.p_id INNER JOIN item ON product.p_id=item.p_id AND product_status=1");
         while ($row = $query->fetch_assoc()) {
             $result[] = $row;
         }
@@ -122,6 +122,37 @@ class inventory_maintain_model
         else{
             $stmt->bind_param('sssss',$p_cost,$reorder_level,$warranty,$sales_price,$id);
             return $stmt->execute();
+        }
+    }
+    public function get_delete_product_details($id){
+        $result = "";
+        $query = $this->mysqli->query("SELECT product.quantity,COUNT(item.serial_no) FROM  product INNER JOIN item ON product.p_id=item.p_id AND product.p_id='" . $id . "'");
+        while ($row = $query->fetch_assoc()) {
+            $result = $row;
+        }
+        return $result;
+    }
+
+    public function delete_product_details($id,$quantity,$count_serial_number,$value){
+        if($quantity<$count_serial_number){
+
+            $stmt = $this->mysqli->prepare("UPDATE product INNER JOIN item ON product.p_id =item.p_id  SET  product.product_status= ?,  item.item_status= ? 
+                                        WHERE product.p_id=?");
+            if($stmt==FALSE)
+                return 0;
+            else{
+                $stmt->bind_param('sss',$value,$value,$id);
+                return $stmt->execute();
+            }
+
+        }else if($quantity==$count_serial_number){
+            $stmt = $this->mysqli->prepare("DELETE FROM product WHERE p_id=?");
+            if($stmt==FALSE)
+                return 0;
+            else{
+                $stmt->bind_param('s',$id);
+                return $stmt->execute();
+            }
         }
     }
 }

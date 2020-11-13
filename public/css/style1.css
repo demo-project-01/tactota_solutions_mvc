@@ -106,6 +106,7 @@ header .name
 
 .menu li:hover{
     border-left: 1px solid #50D5B7;
+
     border-right: 1px solid #50D5B7;
     border-bottom: 1px solid #50D5B7;
     border-top: 1px solid#50D5B7;
@@ -117,6 +118,7 @@ header .name
 .profile:hover .menu {
     color: #50D5B7;
     display:block;
+
 
 }
 
@@ -276,4 +278,34 @@ input[type="new-btn"]:hover {
     content: "";
     display: table;
     clear: both;
+}
+button {
+    background-color: #007042;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    color: #fff;
+}
+
+.btn-group.button1 {
+    background-color: #4CAF50; /* Green */
+    border: 1px solid green;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    /* float: left;*/
+}
+
+.btn-group .button1:not(:last-child) {
+    border-right: none; /* Prevent double borders */
+}
+
+.btn-group .button1:hover {
+    background-color: #3e8e41;
 }

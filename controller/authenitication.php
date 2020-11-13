@@ -4,7 +4,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
- // require_once('../vendor/autoload.php');
+
 
 
 
@@ -14,7 +14,7 @@ class authenitication
 {
 
 
-    public array $errors = array();
+ //   public array $errors = array();
 
     public function __construct()
     {
@@ -333,9 +333,13 @@ class authenitication
 
     }
 
-    public function active_account($id)
+    public function active_inactive_account($id,$id1)
     {
-        // print_r();
+       //  print_r($id);
+        // print_r($id1);
+        $this->auth->active_inactive_account($id,$id1);
+        header('location: ../views/clerk_active_user.php');
+
     }
 
 
@@ -399,9 +403,10 @@ class authenitication
          }else if(isset($_GET['action']) && $_GET['action'] == 'view_profile' ) {
                $id=$_GET["id"];
             $controller->sent_view_profile($id);
-         }else if(isset($_GET['action']) && $_GET['action'] == 'active_account' ) {
-             $id=$_GET["id"];
-             $controller->active_account($id);
+         }else if(isset($_GET['action']) && $_GET['action'] == 'active_inactive_account' ) {
+               $id=$_GET["id"];
+               $id1=$_GET["id1"];
+             $controller->active_inactive_account($id,$id1);
          }else if(isset($_GET['action']) && $_GET['action'] == '' ) {
 
              $controller->search_details();
