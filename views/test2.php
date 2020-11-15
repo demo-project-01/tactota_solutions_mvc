@@ -10,7 +10,7 @@ $sql=$data->get_supplier_names();
     <link rel="stylesheet" href="../public/css/update.css">
     <link rel="stylesheet" href="../public/css/test.css">
 </head>
-<div class="content">
+<div class="content" style="width: auto;">
     <h1 id="tbl-heading"  >Add new Product</h1>
 
     <form action="../controller/sales.php?action=add_product" method="post">
@@ -105,9 +105,9 @@ $sql=$data->get_supplier_names();
                     <td>
                         <table id="mytable">
                             <tbody>
-                             <tr>
+                             <tr id="template">
                               <td>
-                                <input id="name" class="text" type="text" name="serial_number " placeholder="serial_number" required="">
+                                <input id="name" class="text" type="text" name="serial_number[]" placeholder="serial_number" required="" />
                               </td>
                              </tr>
                             </tbody>
@@ -248,7 +248,9 @@ $sql=$data->get_supplier_names();
     });
 
 </script>
+<!--
 <script>
+
     $(document).ready(function() {
         $("#add").click(function() {
             $('#mytable tbody>tr:last').clone(true).insertAfter('#mytable tbody>tr:last');
@@ -257,5 +259,21 @@ $sql=$data->get_supplier_names();
         });
     });
 </script>
+-->
+<script>
+    var row = 1;
+    $(function() {
+        $('#add').click(function(e) {
+            e.preventDefault();
+            var template = $('#template')
+                .clone()                        // CLONE THE TEMPLATE
+                .attr('id', 'row' + (row++))    // MAKE THE ID UNIQUE
+                .appendTo($('#mytable tbody'))  // APPEND TO THE TABLE
+                .show();
+            // SHOW IT
+            $('#mytable tbody>tr:last #name').val('');
+        });
 
+    });
+</script>
 

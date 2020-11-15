@@ -44,13 +44,17 @@ class sales_model
 
               $stmt->bind_param('ssssssssss',$product_id,$product_name,$product_cost,$brand_name,$reorder_level,$model_number,$quantity,$warranty,$product_status,$product_date);
               $stmt->execute();
-            $stmt1 = $this->mysqli->prepare("INSERT INTO  item (serial_no,sales_price,p_id,item_status)
+            for($i=0;$i<$quantity;$i+=1){
+                $stmt1 = $this->mysqli->prepare("INSERT INTO  item (serial_no,sales_price,p_id,item_status)
                                         VALUES (?,?,?,?)");
 
-             $stmt2= $this->mysqli->prepare("INSERT INTO  supplier_product(sup_id,p_id)VALUES (?,?)");
+                $stmt1->bind_param('ssss',$serial_number[$i],$sales_price,$product_id,$item_status);
+                $stmt1->execute();
 
-              $stmt1->bind_param('ssss',$serial_number,$sales_price,$product_id,$item_status);
-                  $stmt1->execute();
+            }
+
+
+            $stmt2= $this->mysqli->prepare("INSERT INTO  supplier_product(sup_id,p_id)VALUES (?,?)");
               $stmt2->bind_param('ss',$supplier_id,$product_id);
                   return $stmt2->execute();
 
