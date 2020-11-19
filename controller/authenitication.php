@@ -5,10 +5,6 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 
-
-
-
-  //require_once("../include.php");
   session_start();
 class authenitication
 {
@@ -44,6 +40,7 @@ class authenitication
 
              //print $row;
             if ($row == "0") {
+                $_SESSION['login_error'] = "your password or username wrong";
                 header('location: ../views/login.php');
             } else {
                 $role = $this->auth->getposition($row);
@@ -123,7 +120,7 @@ class authenitication
          if($result==false){
              echo "worng";
          }else{
-             header('location: ../views/check_email');
+             header('location: ../views/check_email.php');
          }
 
      }
@@ -160,14 +157,17 @@ class authenitication
         if (!isset($_SESSION['username']))
         {
             header('location: ../views/login.php');
+            exit();
         }
         else if(isset($_SESSION['username'])!="")
             header('location: ../views/login.php');
+     //   exit();
         if(isset($_GET['logout']))
         {
             session_destroy();
             session_unset();
             header('location: ../views/login.php');
+            exit();
         }
     }
 
@@ -192,14 +192,17 @@ class authenitication
           $job_position = $_POST['job_position'];
           $email = $_POST['email'];
         //  $image = $_POST['image'];
+
           $username = $_POST['username'];
           $password = md5($_POST['password']);
           $cpassword = md5($_POST['cpassword']);
 
-
+        $errors ="";
 
           if (empty($firstname)) {
-              $errors['firstname'] = "Firstname is required";
+              if (!preg_match("/^[a-zA-Z-' ]*$/",$firstname)) {
+                  $errors['nameerr'] = "Only letters and white space allowed";
+              }
           }
           if (empty($lastname)) {
               $errors['lastname'] = "Lastname is required";
@@ -216,7 +219,12 @@ class authenitication
           if (empty($dob)) {
               $errors['dob'] = "DOB is required";
           }
+          if(empty($email)){
+              if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                  $errors['email'] = "Invalid email format";
+              }
 
+          }
 
           if (empty($username)) {
               $errors['username'] = "Username is required";
@@ -225,7 +233,22 @@ class authenitication
               $errors['cpassword'] = "confrom password is required";
           }
 
-          $token=bin2hex(random_bytes(50));
+        //$target = "images/".basename($image);
+            //image upload
+        if(!empty($_FILES["image"]["name"])) {
+            // Get file info
+            $fileName = basename($_FILES["image"]["name"]);
+            $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
+
+            // Allow certain file formats
+            $allowTypes = array('jpg', 'png', 'jpeg', 'gif');
+            if (in_array($fileType, $allowTypes)) {
+                $image = $_FILES['image']['tmp_name'];
+                $imgContent = addslashes(file_get_contents($image));
+            }
+        }
+
+                $token=bin2hex(random_bytes(50));
 
           $verifed=false;
           $row = $this->auth->valid_email($email);
@@ -245,7 +268,7 @@ class authenitication
              else{
                    $emp_id = $this->auth->getempid();
                    // echo $emp_id;
-                    if($this->auth->emp_register($emp_id,$firstname,$middlename,$lastname,$nic,$address,$image,$job_position,$mobile_no,$dob,$username,$password,$email,$verifed,$token) !=0){
+                    if($this->auth->emp_register($emp_id,$firstname,$middlename,$lastname,$nic,$address,$imgContent,$job_position,$mobile_no,$dob,$username,$password,$email,$verifed,$token) !=0){
 
                         // header('location:authenitication.php?action=sendverifiedemail&id=$email&id2=$token');
 
@@ -255,7 +278,7 @@ class authenitication
                         if($result==true){
                             header('location: ../views/successful_register.php');
                         } else
-                          echo "Error in sending email";
+                            echo "Error in sending email";
                     }else{
                           echo "wrong";
                    }
@@ -264,7 +287,12 @@ class authenitication
 
               }
 
-
+        function test_input($data) {
+            $data = trim($data);
+            $data = stripslashes($data);
+            $data = htmlspecialchars($data);
+            return $data;
+        }
 
      }
      public function send_email($email,$firstname,$token,$emp_id){
@@ -338,6 +366,11 @@ class authenitication
        //  print_r($id);
         // print_r($id1);
         $this->auth->active_inactive_account($id,$id1);
+        if($id1==1){
+            $_SESSION['active_deactive']="Successfully Activated";
+        }else if($id1==0){
+            $_SESSION['active_deactive']="Successfully Deactivated";
+        }
         header('location: ../views/clerk_active_user.php');
 
     }
@@ -381,7 +414,43 @@ class authenitication
               }
 
     }
+    public function  update_view_profile($emp_id){
 
+        $update = $this->auth->get_profile_details($emp_id);
+     //   print_r($update);
+        $_SESSION['upadate_profile_view']=$update;
+        header('location: ../views/profile.php');
+
+     }
+
+    public function update_profile($id){ //nuwan
+        $address=$telephone_no=$email="";
+        $address=$_POST['address'];
+        $mobile_no=$_POST['mobile_no'];
+        $email=$_POST['email'];
+     //   print_r($id);
+//        $row=$this->auth->update_profile_details($id);
+
+        $row=$this->auth->update_profile_details($id,$address,$mobile_no,$email);
+
+        if ($row == "0") {
+          echo "wrong";
+          //   header('location: ../views/profile.php');
+        }else{
+
+            $_SESSION['update_profile']="success update profile";
+            if ($_SESSION['role'] == "Admin") {
+
+                header('location: ../views/admin.php');
+            } elseif ($_SESSION['role']== "Clerk") {
+
+                header('location: ../views/clerk.php');
+            } elseif ($_SESSION['role'] == "Shopkeeper") {
+
+                header('location: ../views/shopkeeper_dashbord.php');
+            }
+        }
+    }
 
 }
         $controller = new authenitication();
@@ -411,9 +480,10 @@ class authenitication
 
              $controller->search_details();
          }else if(isset($_GET['action']) && $_GET['action'] == 'update_profile' ) {
-                 $emp_id=$_SESSION['emp_id'];
-               print_r($emp_id);
-          //   $controller->search_details();
+               //  $emp_id=$_SESSION['emp_id'];
+               //print_r($emp_id);
+             $id=$_GET["id"];
+             $controller-> update_profile($id);
          }else if(isset($_GET['action']) && $_GET['action'] == 'verify_account' ) {
              $emp_id="";
 
@@ -421,4 +491,9 @@ class authenitication
              $token=$_GET['token'];
 
                $controller->verify_account($emp_id,$token);
+         }else if(isset($_GET['action']) && $_GET['action'] == 'profile' ) { //nuwan
+             $emp_id=$_SESSION['emp_id'];
+             $controller->update_view_profile($emp_id);
          }
+
+

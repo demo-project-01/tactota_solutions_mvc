@@ -1,4 +1,6 @@
-
+<?php
+   session_start();
+?>
 
 <!DOCTYPE html>
 <html>
@@ -19,9 +21,15 @@
             <div><img src="../public//images/logo.jpeg" alt="logo" class="verticle-center" width=400 height=auto /></div>
         </div>
         <div class="sub-container">
-            <form action="../controller/authenitication.php?action=register" method="post">
+            <form action="../controller/authenitication.php?action=register" method="post"  enctype="multipart/form-data">
 
                 <i class="fas fa-lock" class="align"></i><input class="text" type="text" name="firstname" placeholder="First Name" required="">
+                <?php if(isset($_SESSION['firstname_error'])): ?>
+                    <div class="alert">
+                        <h1><?php echo $_SESSION['firstname_error']; ?> </h1>
+                    </div>
+                <?php endif; ?>
+                <?php unset($_SESSION['firstname_error']); ?>
                 <i class="fas fa-lock" class="align"></i><input class="text" type="text" name="middlename" placeholder="Middle Name">
                 <i class="fas fa-lock" class="align"></i><input class="text" type="text" name="lastname" placeholder="Last Name" required="">
                 <i class="fas fa-lock" class="align"></i><input class="text" type="text" name="address" placeholder="Address" required="">
@@ -66,3 +74,11 @@
 </div>
 </body>
 </html>
+<script>
+
+    setTimeout(function() {
+        let alert = document.querySelector(".alert");
+        alert.remove();
+    }, 500);
+
+</script>

@@ -30,24 +30,31 @@ class sales
         $item_status=true;
         $product_date=date("Y-m-d");
         $product_id = $this->sale->get_product_id();
-        //print_r($serial_number);
-      // $unique_serial_number= $this->unique_serial_number($serial_number,$product_id,$quantity);
-    //print_r($unique_serial_number[0]);
 
-            //$row=$serial_number[1]."#".$product_id;
-           // print_r($row);
+      //  print_r(sizeof($serial_number));
+
+          $size_array=sizeof($serial_number);
+          if($quantity==$size_array){
+              echo "good";
+          }else if($quantity > $size_array){
+               echo "you can add less than quntyty";
+          }else{
+              echo "you can add more than quntyty";
+          }
+
 
             foreach ($serial_number as $key =>$value){
                  $serial_number[$key]=$value."#".$product_id;
             }
-//            print_r($serial_number);
+
 
       //  print_r($product_date);
        // print_r($item_status);
       //  print_r($product_id);
        // print_r($quantity);
     if($this->sale->add_new_product($product_id,$product_name,$product_cost,$brand_name,$reorder_level,$model_number,$quantity,$warranty,$product_status,$product_date,$serial_number,$sales_price,$item_status,$supplier_id)){
-        header('location: ../views/newproduct.php');
+          $_SESSION['add_product']="successful Add New Suppliers";
+        header('location: ../views/view_all_products.php');
     }else{
             echo "dhskfshdj";
     }
@@ -63,11 +70,10 @@ class sales
    //   header('location: ../views/bill.php');
     }
 
-    public function dashbord_search($id)
+    public function dashbord_search()
     {
-        // print_r($id);
-        $row=$this->sale->dashbord_search($id);
-        echo $row;
+          $id=$_POST['query'];
+        return $this->sale->dashbord_search($id);
     }
 
 }
@@ -83,81 +89,8 @@ if(isset($_GET['action']) && $_GET['action'] == "get_supplier_names") {
     $controller->sell($id);
 }else if(isset($_GET['action']) && $_GET['action'] == '') {
      $id=$_POST['search'];
-    $controller->dashbord_search($id);
+    $controller->dashbord_search();
 }
 
 
 
-/*
-dashbord_search
-<script type="text/javascript">
-    $(document).ready(function(){
-        load_data();
-        function load_data(query)
-          {
-              $.ajax({
-                  url:"../controller/authenitication.php?action=search",
-                  method:"post",
-                  data:{query:query},
-                  success:function(data)
-                  {
-                      $('#view-tbl').html(data);
-                  }
-              });
-          }
-
-        $('#search_text').keyup(function(){
-            var search = $(this).val();
-            if(search != '')
-            {
-                load_data(search);
-            }
-            else
-            {
-                load_data();
-            }
-        });
-    });
-
-
-
-
-
-<table id="table-data">
-            <thead>
-            <tr>
-                <th>User ID</th>
-                <th scope="col">User Name</th>
-                <th scope="col">Job Position</th>
-                <th scope="col">Active/non-Active</th>
-                <th scope="col">View Details</th>
-            </tr>
-            </thead>
-            <tbody>
-                    <?php
-
-                       foreach ($sql as $k => $v){
-                             ?>
-
-
-            <tr>
-                 <td><?php echo $sql[$k]["emp_id"] ?></td>
-                <td><?php echo $sql[$k]["username"] ?></td>
-                 <td><?php echo $sql[$k]["position"] ?></td>
-                <td><label class="switch">
-
-                        <input type="checkbox" id="active" onclick="active()">
-                        <span class="slider round"></span>
-
-                    </label>
-                </td>
-                <td><a href="../controller/authenitication.php?action=view_profile&id=<?php  echo $sql[$k]["emp_id"]; ?>" class="view"><button>View</button></a></td>
-            </tr>
-                      <?php
-
-                         } ?>
-            </tbody>
-
-
-        </table>
-*/

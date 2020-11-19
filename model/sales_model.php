@@ -36,14 +36,14 @@ class sales_model
 
 
     public function add_new_product($product_id,$product_name,$product_cost,$brand_name,$reorder_level,$model_number,$quantity,$warranty,$product_status,$product_date,$serial_number,$sales_price,$item_status,$supplier_id){
-       $stmt=$this->mysqli->prepare("INSERT INTO product (p_id,p_name,p_cost,brand_name,reorder_level,model_no,quantity,warranty,product_status,product_date)
+        $stmt=$this->mysqli->prepare("INSERT INTO product (p_id,p_name,p_cost,brand_name,reorder_level,model_no,quantity,warranty,product_status,product_date)
                                         VALUES (?,?,?,?,?,?,?,?,?,?)");
         if($stmt == false){
             return 0;
         }else{
 
-              $stmt->bind_param('ssssssssss',$product_id,$product_name,$product_cost,$brand_name,$reorder_level,$model_number,$quantity,$warranty,$product_status,$product_date);
-              $stmt->execute();
+            $stmt->bind_param('ssssssssss',$product_id,$product_name,$product_cost,$brand_name,$reorder_level,$model_number,$quantity,$warranty,$product_status,$product_date);
+            $stmt->execute();
             for($i=0;$i<$quantity;$i+=1){
                 $stmt1 = $this->mysqli->prepare("INSERT INTO  item (serial_no,sales_price,p_id,item_status)
                                         VALUES (?,?,?,?)");
@@ -55,10 +55,10 @@ class sales_model
 
 
             $stmt2= $this->mysqli->prepare("INSERT INTO  supplier_product(sup_id,p_id)VALUES (?,?)");
-              $stmt2->bind_param('ss',$supplier_id,$product_id);
-                  return $stmt2->execute();
+            $stmt2->bind_param('ss',$supplier_id,$product_id);
+            return $stmt2->execute();
 
-       }
+        }
 
     }
 
@@ -73,7 +73,7 @@ class sales_model
 
      public function dashbord_search($id){
          $result = "";
-         $query = $this->mysqli->query("SELECT p_name FROM product where p_id='" . $id . "'");
+         $query = $this->mysqli->query("SELECT p_cost,brand_name FROM product where p_name='" . $id . "'");
 
          while ($row = $query->fetch_assoc()) {
              $result = $row;

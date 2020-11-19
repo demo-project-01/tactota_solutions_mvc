@@ -3,21 +3,23 @@ include 'clerk_sidebar.php';
 require '../controller/authenitication.php';
 $data=new authenitication();
 $sql=$data->active_user();
-
+//$_SESSION['active_deactive']
 ?>
 
-<div class="content">
+<div class="content" style="width: auto;">
 
     <h1 id="tbl-heading"> Activate Users</h1>
 
     <div class="search">
         <input type="text" placeholder="Search..">
     </div>
+    <?php if(isset($_SESSION['active_deactive'])): ?>
     <div class="alert" id="activate">
-        <span class="activebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-        <strong>Successfully Activated</strong>  the User "name here"
+        <span class="activebtn">&times;</span>
+        <strong><?php echo $_SESSION['active_deactive']; ?></strong>
     </div>
-
+    <?php endif; ?>
+    <?php unset($_SESSION['active_deactive']); ?>
     <div class="view-tbl">
         <table>
             <thead>
@@ -77,4 +79,11 @@ $sql=$data->active_user();
 </div>
 
 
-</body>
+<script>
+
+    setTimeout(function() {
+        let alert = document.querySelector(".alert");
+        alert.remove();
+    }, 1600);
+
+</script>

@@ -32,7 +32,7 @@
 
                 <i class="far fa-user-circle fa-2x"></i>
                 <ul class="menu">
-                    <li><a href="../controller/authenitication.php?action=update_profile"><i class="fas fa-user-alt"></i>Profile</a></li>
+                    <li><a href="../controller/authenitication.php?action=profile"><i class="fas fa-user-alt"></i>Profile</a></li>
                     <li><a href="../controller/authenitication.php?action=logout"><i class="fas fa-sign-out-alt"></i>Log out</a></li>
                 </ul>
             </div>
@@ -45,7 +45,7 @@
 <div class="sidebar">
 
     <a href="clerk.php"><i class="fas fa-home"></i></i><span>Dashboard</span></a>
-    <a href="newproduct.php"><i class="fas fa-cart-plus"></i></i><span>Add Product</span></a>
+    <a href="view_all_products.php"><i class="fas fa-cart-plus"></i></i><span>Add Product</span></a>
     <a href="list_updateproduct.php"><i class="fas fa-edit"></i></i><span>Update Product</span></a>
     <a href="#"><i class="fas fa-inbox"></i></i><span>Indox</span></a>
     <a href="#"><i class="fas fa-cart-arrow-down"></i></i><span>Return Product</span></a>
@@ -54,7 +54,7 @@
     <a href="#"><i class="fas fa-store"></i></i><span>Stock Details</span></a>
     <a href="#"><i class="fas fa-shopping-bag"></i></i></i><span>Purchase Details</span></a>
     <a href="supplier_details.php"><i class="fas fa-people-carry"></i></i><span>Add Suppliers</span></a>
-    <a href="#"><i class="fas fa-comments"></i></i></i><span>Feedback</span></a>
+    <a href="view_feedback.php"><i class="fas fa-comments"></i></i></i><span>Feedback</span></a>
 </div>
 <!--sidebar end-->
 

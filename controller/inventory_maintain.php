@@ -62,7 +62,7 @@ class inventory_maintain
     {
         // print_r($id);
         $row = $this->inven->get_view_details($id);
-        echo "<br>";
+       /* echo "<br>";
         print_r($row['sup_name']);
         echo "<br>";
         print_r($row['email_address']);
@@ -70,6 +70,9 @@ class inventory_maintain
         print_r($row['address']);
         echo "<br>";
         print_r($row['telephone_no']);
+       */
+       $_SESSION['supplier_profile_details']=$row;
+        header('location: ../views/view_one_supplier.php');
 
     }
 
@@ -133,21 +136,22 @@ class inventory_maintain
 
     public function delete_product_details($id)
     {
-        print_r($id);
+        //print_r($id);
         $row= $this->inven->get_delete_product_details($id);
         $quantity=$row['quantity'];
         $count_serial_number=$row['COUNT(item.serial_no)'];
         $value=false;
-        print_r($quantity);
-        echo "</br>";
-        print_r($count_serial_number);
+   //     print_r($quantity);
+     //   echo "</br>";
+      //  print_r($count_serial_number);
         $row= $this->inven->delete_product_details($id,$quantity,$count_serial_number,$value);
         if($row=="0"){
             echo "wrong";
         }else{
-            header('location: ../view/list_updateproduct.php');
+            header('location: ../views/list_updateproduct.php');
+
         }
-        // header('location: ../view/list_updateproduct.php');
+
     }
 }
 

@@ -1,46 +1,49 @@
 <?php
-include 'clerk_sidebar.php';
-require '../controller/authenitication.php';
-$data=new authenitication();
-$sql=$data->user_details();
-//session_start();
-//$row=$_SESSION['view_user_details'];
+require_once('shopkeeper_sidebar.php');
 ?>
-<div class="content">
-    <h1 id="tbl-heading"> View Users</h1>
+<div class="content" style="width: auto;">
 
-    <div class="search">
-        <input type="text" placeholder="Search..">
+    <br><br><div class="image"><img src="../public/images/logo.jpeg" alt="logo" class="centers" width=200 height=300/></div>
+
+    <br><br>
+    <div class="center">
+
+        <form class="example">
+            <input type="text" id="search" placeholder="Search Product" name="search">
+            <button type="submit"><i class="fa fa-search"></i></button>
+            <div id="result"></div>
+        </form>
     </div>
 
-
-    <div class="view-tbl">
-        <table>
-            <thead>
-            <tr>
-                <th>User ID</th>
-                <th scope="col">User Name</th>
-                <th scope="col">Job Position</th>
-                <th scope="col" colspan=3 border=0>Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php foreach($sql as $k => $v)
-            {
-                ?>
-                <tr>
-                    <td><?php echo $sql[$k]['emp_id']; ?></td>
-                    <td><?php echo $sql[$k]['username']; ?></td>
-                    <td><?php echo $sql[$k]['position']; ?></td>
-                    <td> <a href="../controller/authenitication.php?action=view_profile&id=<?php
-                        echo $sql[$k]["emp_id"]; ?>"><i class="fa fa-eye" aria-hidden="true">&nbsp View</i>
-                        </a></td>
-                    <td><i class="fa fa-trash" aria-hidden="true">&nbsp Delete</i></td>
-                </tr>
-                <?php
-            } ?>
-            </tbody>
-        </table>
+    <div class="footer">
+        <p>© Tactota Solutions All rights reserved </p>
     </div>
 </div>
-</body>
+<head>
+    <script src="jquery-3.5.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#search').keyup(function(){
+            var query = $(this).val();
+            if(query != '')
+            {
+                $.ajax({
+                    url:"../controller/sales.php?action=dashbord_search",
+                    method:"POST",
+                    data:{query:query},
+                    success:function(data)
+                    {
+                        $('#result').fadeIn();
+                        $('#result').html(data);
+                    }
+                });
+            }
+        });
+        $(document).on('click', 'li', function(){
+            $('#search').val($(this).text());
+            $('#result').fadeOut();
+        });
+    });
+</script>

@@ -16,12 +16,19 @@ $sql=$data->update_product();
         <a class="add_button" href="newproduct.php">-|- Add new Product</a>
     </div>
 
+    <?php if(isset($_SESSION['add_product'])): ?>
+        <div class="alert" id="activate">
+            <span class="activebtn">&times;</span>
+            <strong><?php echo $_SESSION['add_product']; ?></strong>
+        </div>
+    <?php endif; ?>
+    <?php unset($_SESSION['add_product']); ?>
     <br>
     <div class="view-tbl">
         <table>
             <thead>
             <tr>
-                <th>Product ID</th>
+
                 <th>Product Name</th>
                 <th>Brand Name</th>
                 <th>Model No</th>
@@ -36,7 +43,7 @@ $sql=$data->update_product();
             {
                 ?>
                 <tr>
-                    <td><?php echo $sql[$k]["p_id"] ?></td>
+
                     <td><?php echo $sql[$k]["p_name"] ?></td>
                     <td><?php echo $sql[$k]["brand_name"] ?></td>
                     <td><?php echo $sql[$k]["model_no"] ?></td>
@@ -54,4 +61,11 @@ $sql=$data->update_product();
         </table>
     </div>
 </div>
-</body>
+<script>
+
+    setTimeout(function() {
+        let alert = document.querySelector(".alert");
+        alert.remove();
+    }, 60);
+
+</script>

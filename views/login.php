@@ -1,5 +1,5 @@
 <?php require_once("../controller/authenitication.php");
-
+ //session_start();
 ?>
 <!DOCTYPE html>
 <html>
@@ -13,8 +13,9 @@
 </head>
 <body>
 	<div>
+
 		<br/>
-		<h1> Login/ SignIn</h1>
+		<h1> Login/ SignIn </h1>
 		<div class="main-container">
 			<div class="sub-container">
 				<div><img src="../public/images/logo.jpeg" alt="logo" class="verticle-center" width=500 height=auto/></div>

@@ -26,7 +26,7 @@
 }
 
 body {
-    font-family: Arial;
+    font-family: Arial, serif;
 }
 
 * {
@@ -81,6 +81,6 @@ p{
     width:105%;
     background:#2f323a;
     height:38px;
-    margin-top: 118px;
+    margin-top: 158px;
     margin-left: -3%;
 }

@@ -23,10 +23,7 @@ $row=$_SESSION['one_product_details'];
     <div class="update-tbl">
         <table>
             <tbody>
-            <tr>
-                <th class="viewth">Product ID</th>
-                <td><?php echo $row['p_id'] ?></td>
-            </tr>
+
             <tr>
                 <th>Product Name</th>
                 <td><?php echo $row['p_name'] ?></td>
